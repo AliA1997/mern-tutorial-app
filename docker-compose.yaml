@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  backend:
+    container_name: mern-tutorial-backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '81:81'
+    env_file:
+      - ./backend/.env
+  frontend:
+    container_name: mern-tutorial-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
