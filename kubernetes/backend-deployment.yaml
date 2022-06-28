@@ -1,0 +1,39 @@
+# Specify the apiVersion
+apiVersion: apps/v1
+# Specify the kind of kubernetes resource to deployment 
+kind: Deployment
+# Set the name of the deployment resource
+metadata: 
+  name: backend-deployment
+# Define the specifications of the deployment such as the pods and container's ran on the pods.
+# Define the number of instance of the same pod.
+spec:
+  replicas: 1
+  selector:
+    # Specify the selector via a nested configuration via key and value.
+    matchLabels:
+      app: backend
+  # Define a selector to select specific pod
+  # Define the name of the pod via the template metadata
+  template:
+    # Define label for template.
+    metadata:
+      labels:
+        app: backend
+    # Define specification of pod.
+    spec:
+      # Define the containers ran, provide a list of nested configuration via a name, image.
+      # When specifying image, specify tag as well.
+      # Set environment variables for the container via a name-value pair
+      containers:
+        - name: backend
+          image: merntutorialali/mern-tutorial-backend:latest
+          env: 
+            - name: PORT
+              value: '80'
+            - name: MONGODB_USERNAME
+              value: 'admin'
+            - name: MONGODB_PASSWORD
+              value: 'nAYifKuiVByPENS7'
+            - name: MONGODB_URL
+              value: 'favorite-verses.q08zo4w.mongodb.net/'
